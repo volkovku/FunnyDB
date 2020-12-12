@@ -8,6 +8,11 @@ It was developed especially for programmers who likes plain SQL like me.
 FunnyDB uses power of string interpolation and solves huge problem - 
 gap between parameter definition and it value assigment.
 
+Packages
+--------
+
+NuGet releases: https://www.nuget.org/packages/FunnyDB/
+
 First example
 -------------
 
@@ -102,7 +107,7 @@ SELECT event_time, balance
 Transactions
 ------------
 
-###Tx block 
+### Tx block 
 
 Executes query / update in block-scoped transactions.
 
@@ -123,7 +128,7 @@ Session.Tx(connectionString, session =>
 }
 ```
 
-###AutoCommit block
+### AutoCommit block
 
 Executes query / update in auto-commit mode.
 
