@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnyDB", "FunnyDB\FunnyDB.csproj", "{6BA0FD3A-82FB-4366-AE98-4BE931817056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnyDB.Test", "FunnyDB.Test\FunnyDB.Test.csproj", "{678422A7-22F9-4508-815E-5A0A540E56B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunnyDB.Postgres", "FunnyDB.Postgres\FunnyDB.Postgres.csproj", "{CE8DF31B-CE8E-48EC-843B-F3029E046B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{14C38539-00E8-4A50-96B8-3E0BAD9D08A3}"
+ProjectSection(SolutionItems) = preProject
+	readme.md = readme.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BA0FD3A-82FB-4366-AE98-4BE931817056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA0FD3A-82FB-4366-AE98-4BE931817056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA0FD3A-82FB-4366-AE98-4BE931817056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA0FD3A-82FB-4366-AE98-4BE931817056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{678422A7-22F9-4508-815E-5A0A540E56B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678422A7-22F9-4508-815E-5A0A540E56B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678422A7-22F9-4508-815E-5A0A540E56B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678422A7-22F9-4508-815E-5A0A540E56B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE8DF31B-CE8E-48EC-843B-F3029E046B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE8DF31B-CE8E-48EC-843B-F3029E046B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE8DF31B-CE8E-48EC-843B-F3029E046B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE8DF31B-CE8E-48EC-843B-F3029E046B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
