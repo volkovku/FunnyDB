@@ -18,12 +18,12 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
 
-    readonly string Version = "0.1.1";
+    readonly string Version = "0.1.2";
     readonly string Authors = "Kirill Volkov (drDebugIt)";
     readonly string Description = "FunnyDB - a simple and lightweight query builder and object mapper for .Net";
     readonly string KeyWords = "sql ado-net db database dsl";
 
-    readonly BuildConfig[] Projects = new BuildConfig[]
+    readonly BuildConfig[] Projects =
     {
         new BuildConfig("FunnyDB", pack: true),
         new BuildConfig("FunnyDB.Postgres", pack: true),
