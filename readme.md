@@ -66,6 +66,15 @@ class Account
 }
 ```
 
+Caveats
+-------
+
+FunnyDB protects you from SQL injection with `{p(value)}` syntax. But it can't protect you 
+from mistakes when you use `{value}` instead of `{p(value)}`. Humans are not machines and 
+this kind of errors is a matter of time. To solve this issue FunnyDB provides SqlQueryLinter
+which can be executed as a step on CI side or from you unit test (see example [here](FunnyDB.Test/SqlLinterTests.cs)).  
+
+
 Compose queries
 ---------------
 

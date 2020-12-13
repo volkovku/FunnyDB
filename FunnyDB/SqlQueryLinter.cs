@@ -1,16 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace FunnyDB
 {
     public class SqlQueryLinter : IDisposable
     {
+        private static readonly string[] DefaultFileExtensions = new[] {".cs"};
+
         private readonly BinaryReader _reader;
         private int _line = 1;
         private int _position;
 
+        /// <summary>
+        /// Validates files in specified folder.
+        /// </summary>
+        /// <param name="path">Path to folder which should be validated.</param>
+        /// <param name="errors">A set of collected errors.</param>
+        /// <param name="extensions">A collection extensions of files which should be validated. By default 'cs'.</param>
+        /// <param name="reqursive">Determines is linter should check nested folders recursively.</param>
+        /// <param name="ignore">A predicate which returns true if specified file should be ignored (absolute path used).</param>
+        /// <returns>Returns true if folder contains valid files. Otherwise returns false.</returns>
+        public static bool ValidateFolder(
+            string path,
+            out IReadOnlyCollection<FileError> errors,
+            string[] extensions = null,
+            bool reqursive = true,
+            Func<string, bool> ignore = null)
+        {
+            if (!Directory.Exists(path))
+            {
+                throw new InvalidOperationException($"Folder not found: {path}");
+            }
+ 
+            var collectedErrors = (List<FileError>) null;
+            if (reqursive)
+            {
+                foreach (var nestedFolder in Directory.GetDirectories(path))
+                {
+                    if (!ValidateFolder(
+                        nestedFolder,
+                        extensions: extensions,
+                        reqursive: true,
+                        ignore: ignore,
+                        errors: out var directoryErrors))
+                    {
+                        collectedErrors = collectedErrors ?? new List<FileError>();
+                        collectedErrors.AddRange(directoryErrors);
+                    }
+                }
+
+                foreach (var file in Directory.GetFiles(path))
+                {
+                    if (ignore != null && ignore(file))
+                    {
+                        continue;
+                    }
+
+                    var fileExt = Path.GetExtension(file);
+                    var targetExt = extensions ?? DefaultFileExtensions;
+                    if (targetExt.All(_ => _ != fileExt))
+                    {
+                        continue;
+                    }
+
+                    using (var f = File.OpenRead(file))
+                    {
+                        if (!Validate(f, out var fileErrors))
+                        {
+                            collectedErrors = collectedErrors ?? new List<FileError>();
+                            collectedErrors.AddRange(fileErrors.Select(_ => new FileError(file, _)));
+                        }
+                    }
+                }
+            }
+
+            errors = (IReadOnlyCollection<FileError>) collectedErrors ?? Array.Empty<FileError>();
+            return errors.Count == 0;
+        }
 
         /// <summary>
         /// Validates content in specified stream.
@@ -190,7 +259,7 @@ namespace FunnyDB
             {
                 return false;
             }
-            
+
             var l = lastChars.Length;
             return lastChars[(pos - 7) % l] == 's'
                    && lastChars[(pos - 6) % l] == 'q'
@@ -292,6 +361,18 @@ namespace FunnyDB
             }
 
             return true;
+        }
+
+        public class FileError
+        {
+            public FileError(string path, Error error)
+            {
+                Path = path;
+                Error = error;
+            }
+
+            public readonly string Path;
+            public readonly Error Error;
         }
 
         public class Error
