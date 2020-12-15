@@ -40,6 +40,11 @@ namespace FunnyDB
             }
         }
 
+        /// <summary>
+        /// Returns specified string itself. Used as linter suppressor. 
+        /// </summary>
+        public static string s(string str) => str;
+        
         public static string p((SqlQueryValue, string) namedValue)
         {
             var (value, name) = namedValue;
@@ -47,6 +52,34 @@ namespace FunnyDB
             return p(parameter);
         }
 
+        public static string p(IReadOnlyCollection<SqlQueryValue> values)
+        {
+            var sb = _parameterNameBuilder;
+            if (sb == null)
+            {
+                sb = new StringBuilder();
+                _parameterNameBuilder = sb;
+            }
+
+            try
+            {
+                var delimiter = "";
+                foreach (var v in values)
+                {
+                    sb.Append(delimiter);
+                    sb.Append(p(v));
+                    delimiter = ", ";
+                }
+
+                return sb.ToString();
+            }
+            finally
+            {
+                sb.Clear();
+            }
+        }
+
+        
         // ReSharper disable once InconsistentNaming
         public static string p(SqlQueryValue value, params SqlQueryValue[] values)
         {

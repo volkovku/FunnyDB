@@ -167,7 +167,6 @@ namespace FunnyDB
                     {
                         collectedErrors = collectedErrors ?? new List<Error>();
                         collectedErrors.AddRange(stringErrors);
-                        continue;
                     }
                 }
             }
@@ -240,7 +239,7 @@ namespace FunnyDB
                 return;
             }
 
-            if (nextCh != 'p')
+            if (nextCh != 'p' && nextCh != 's')
             {
                 errors.Add(new Error(_line, _position));
                 return;
