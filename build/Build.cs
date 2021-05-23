@@ -18,7 +18,7 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
 
-    readonly string Version = "0.1.4";
+    readonly string Version = "0.2.0";
     readonly string Authors = "Kirill Volkov (drDebugIt)";
     readonly string Description = "FunnyDB - a simple and lightweight query builder and object mapper for .Net";
     readonly string KeyWords = "sql ado-net db database dsl";
