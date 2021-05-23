@@ -1,16 +1,17 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace FunnyDB
 {
     internal sealed class DbSqlQueryParameter : SqlQueryParameter
     {
-        public DbSqlQueryParameter(int index, DbType dbType, object value) : base(index)
+        public DbSqlQueryParameter(int index, DbType dbType, Func<object> value) : base(index)
         {
             DbType = dbType;
             Value = value;
         }
 
-        public DbSqlQueryParameter(string name, DbType dbType, object value) : base(name)
+        public DbSqlQueryParameter(string name, DbType dbType, Func<object> value) : base(name)
         {
             DbType = dbType;
             Value = value;
@@ -18,7 +19,7 @@ namespace FunnyDB
 
         public readonly DbType DbType;
 
-        public override object Value { get; }
+        public override Func<object> Value { get; }
 
         public override SqlQueryParameter ChangeIndex(int index)
         {
@@ -30,7 +31,7 @@ namespace FunnyDB
             var p = command.CreateParameter();
             p.ParameterName = Name;
             p.DbType = DbType;
-            p.Value = Value;
+            p.Value = Value();
             command.Parameters.Add(p);
         }
     }

@@ -43,15 +43,18 @@ namespace FunnyDB
         /// <summary>
         /// Returns specified string itself. Used as linter suppressor. 
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         public static string s(string str) => str;
         
+        // ReSharper disable once InconsistentNaming
         public static string p((SqlQueryValue, string) namedValue)
         {
             var (value, name) = namedValue;
-            var parameter = new DbSqlQueryParameter(name, value.DbType, value.Value);
+            var parameter = new DbSqlQueryParameter(name, value.DbType, () => value.Value());
             return p(parameter);
         }
 
+        // ReSharper disable once InconsistentNaming
         public static string p(IReadOnlyCollection<SqlQueryValue> values)
         {
             var sb = _parameterNameBuilder;
@@ -108,6 +111,7 @@ namespace FunnyDB
             }
         }
 
+        // ReSharper disable once InconsistentNaming
         public static string p(SqlQueryValue value)
         {
             var index = NextParameterIndex;
@@ -115,6 +119,7 @@ namespace FunnyDB
             return p(parameter);
         }
 
+        // ReSharper disable once InconsistentNaming
         public static string p(SqlQueryParameter parameter, params SqlQueryParameter[] parameters)
         {
             var sb = _parameterNameBuilder;
@@ -142,6 +147,7 @@ namespace FunnyDB
             }
         }
 
+        // ReSharper disable once InconsistentNaming
         public static string p(SqlQueryParameter parameter)
         {
             var parameters = _queryParameters;
@@ -149,7 +155,7 @@ namespace FunnyDB
             if (parameter.Index == SqlQueryParameter.PinnedNameIndex
                 && parameters.TryGetValue(parameterName, out var existParameter))
             {
-                if (Equals(existParameter.Value, parameter.Value))
+                if (Equals(existParameter.Value(), parameter.Value()))
                 {
                     return GetParameterNameForQuery(parameterName);
                 }

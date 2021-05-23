@@ -1,10 +1,11 @@
-﻿using NpgsqlTypes;
+﻿using System;
+using NpgsqlTypes;
 
 namespace FunnyDB.Postgres
 {
     public sealed class PgValue
     {
-        public PgValue(NpgsqlDbType dbType, object value)
+        public PgValue(NpgsqlDbType dbType, Func<object> value)
         {
             DbType = dbType;
             Value = value;
@@ -12,7 +13,7 @@ namespace FunnyDB.Postgres
 
         public readonly NpgsqlDbType DbType;
 
-        public readonly object Value;
+        public readonly Func<object> Value;
 
         private bool Equals(PgValue other)
         {

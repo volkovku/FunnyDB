@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace FunnyDB
 {
@@ -39,7 +40,7 @@ namespace FunnyDB
 
         public readonly int Index;
         public readonly string Name;
-        public abstract object Value { get; }
+        public abstract Func<object> Value { get; }
 
         public abstract SqlQueryParameter ChangeIndex(int index);
         public abstract void AddToCommand(IDbCommand command);

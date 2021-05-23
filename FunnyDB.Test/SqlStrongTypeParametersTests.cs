@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using FluentAssertions;
+using NUnit.Framework;
 using static FunnyDB.Dialect;
 
 namespace Domain
@@ -15,6 +17,7 @@ namespace Domain
 
     public static class Dialect
     {
+        // ReSharper disable once InconsistentNaming
         public static string p(AccountId accountId) => FunnyDB.Dialect.p(accountId.Value);
     }
 }
@@ -32,6 +35,9 @@ namespace FunnyDB.Test
         {
             var accountId = new AccountId(1);
             var query = sql(() => $"SELECT balance FROM accounts WHERE id = {p(accountId)}");
+            query.Sql.Should().Be("SELECT balance FROM accounts WHERE id = @p_0_");
+            query.Parameters.Count.Should().Be(1);
+            query.Parameters.First().Value().Should().Be(accountId.Value);
         }
     }
 }

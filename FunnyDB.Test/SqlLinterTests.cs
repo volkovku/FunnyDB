@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
@@ -55,7 +53,7 @@ public void SqlQuery_ShouldUseNamedParameters()
             SqlQueryLinter.ValidateFolder(projectFolder, out var errors).Should().BeFalse();
             errors.Count.Should().Be(1);
             errors.First().Path.Should().Be(Path.Combine(projectFolder, "SqlLinterTests.cs"));
-            errors.First().Error.Line.Should().Be(51);
+            errors.First().Error.Line.Should().Be(49);
             errors.First().Error.Position.Should().Be(38);
         }
     }

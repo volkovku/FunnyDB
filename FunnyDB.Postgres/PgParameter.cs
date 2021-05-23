@@ -18,7 +18,7 @@ namespace FunnyDB.Postgres
             _pgValue = value;
         }
 
-        public override object Value => _pgValue.Value;
+        public override Func<object> Value => _pgValue.Value;
 
         public override SqlQueryParameter ChangeIndex(int index)
         {
@@ -37,7 +37,7 @@ namespace FunnyDB.Postgres
             var p = pgCommand.CreateParameter();
             p.ParameterName = Name;
             p.NpgsqlDbType = _pgValue.DbType;
-            p.Value = _pgValue.Value;
+            p.Value = _pgValue.Value();
 
             pgCommand.Parameters.Add(p);
         }

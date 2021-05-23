@@ -32,11 +32,11 @@ namespace FunnyDB.Test
             parameters.Count.Should().Be(3);
 
             parameters[0].Name.Should().Be("p_0_");
-            parameters[0].Value.Should().Be(fromDate);
+            parameters[0].Value().Should().Be(fromDate);
             parameters[1].Name.Should().Be("p_1_");
-            parameters[1].Value.Should().Be(toDate);
+            parameters[1].Value().Should().Be(toDate);
             parameters[2].Name.Should().Be("p_2_");
-            parameters[2].Value.Should().Be(balance);
+            parameters[2].Value().Should().Be(balance);
         }
 
         [Test]
@@ -66,7 +66,7 @@ SELECT event_time, balance
             parameters.Count.Should().Be(1);
 
             parameters[0].Name.Should().Be("account_id");
-            parameters[0].Value.Should().Be(accountId.Item1);
+            parameters[0].Value().Should().Be(accountId.Item1);
         }
 
         [Test]
@@ -105,15 +105,15 @@ SELECT event_time, balance
             parameters.Count.Should().Be(5);
 
             parameters[0].Name.Should().Be("account_id");
-            parameters[0].Value.Should().Be(accountId.Item1);
+            parameters[0].Value().Should().Be(accountId.Item1);
             parameters[1].Name.Should().Be("p_1_");
-            parameters[1].Value.Should().Be(fromDate);
+            parameters[1].Value().Should().Be(fromDate);
             parameters[2].Name.Should().Be("p_2_");
-            parameters[2].Value.Should().Be(toDate);
+            parameters[2].Value().Should().Be(toDate);
             parameters[3].Name.Should().Be("p_3_");
-            parameters[3].Value.Should().Be(fromDate);
+            parameters[3].Value().Should().Be(fromDate);
             parameters[4].Name.Should().Be("p_4_");
-            parameters[4].Value.Should().Be(toDate);
+            parameters[4].Value().Should().Be(toDate);
         }
     }
 }
